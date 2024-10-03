@@ -1,0 +1,62 @@
+﻿<Window x:Class="HWNDParentTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HWNDParentTest"
+        xmlns:vm="clr-namespace:HWNDParentTest.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Closing="Window_Closing">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="96"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="路径" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" VerticalAlignment="Center"
+                         Text="{Binding Source, Mode=TwoWay}"/>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="hwnd参数格式" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" VerticalAlignment="Center"
+                         Text="{Binding HWNDArgsFormat, Mode=TwoWay}"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="其他参数" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" VerticalAlignment="Center"
+                         Text="{Binding ExtraArguments, Mode=TwoWay}"/>
+            </Grid>
+            <Button Grid.Row="3" Content="启动" Click="Button_Click"/>
+        </Grid>
+
+        <local:WindowsHostControl x:Name="windowsHost" Grid.Row="1"
+                                  Source="{Binding Source}"
+                                  HWNDArgsFormat="{Binding HWNDArgsFormat}"
+                                  ExtraArguments="{Binding ExtraArguments}"/>
+    </Grid>
+</Window>
